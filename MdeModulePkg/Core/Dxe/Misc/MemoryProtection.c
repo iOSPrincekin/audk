@@ -93,7 +93,8 @@ SetUefiImageMemoryAttributes (
 **/
 VOID
 SetUefiImageProtectionAttributes (
-  IN UEFI_IMAGE_RECORD        *ImageRecord
+  IN UEFI_IMAGE_RECORD        *ImageRecord,
+  IN BOOLEAN                  IsUser
   )
 {
   UEFI_IMAGE_RECORD_SEGMENT       *ImageRecordSegment;
@@ -106,7 +107,7 @@ SetUefiImageProtectionAttributes (
     SetUefiImageMemoryAttributes (
       SectionAddress,
       ImageRecordSegment->Size,
-      ImageRecordSegment->Attributes
+      IsUser ? ImageRecordSegment->Attributes | (UINT32)EFI_MEMORY_USER : ImageRecordSegment->Attributes
       );
 
     SectionAddress += ImageRecordSegment->Size;
@@ -229,7 +230,11 @@ ProtectUefiImage (
     //
     // CPU ARCH present. Update memory attribute directly.
     //
-    SetUefiImageProtectionAttributes (ImageRecord);
+    if (AsciiStrStr (PdbPointer, "Ntfs") != NULL) {
+      SetUefiImageProtectionAttributes (ImageRecord, TRUE);
+    } else {
+      SetUefiImageProtectionAttributes (ImageRecord, FALSE);
+    }
   }
 
 Finish:
@@ -660,7 +665,7 @@ MemoryProtectionCpuArchProtocolNotify (
     //
     // CPU ARCH present. Update memory attribute directly.
     //
-    SetUefiImageProtectionAttributes (ImageRecord);
+    SetUefiImageProtectionAttributes (ImageRecord, FALSE);
   }
 
 Done:
