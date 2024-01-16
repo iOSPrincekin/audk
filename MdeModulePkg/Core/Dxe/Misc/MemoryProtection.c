@@ -90,11 +90,12 @@ SetUefiImageMemoryAttributes (
   Set UEFI image protection attributes.
 
   @param[in]  ImageRecord    A UEFI image record
+  @param[in]  IsUser         Whether UEFI image record is User Image.
 **/
 VOID
 SetUefiImageProtectionAttributes (
-  IN UEFI_IMAGE_RECORD        *ImageRecord,
-  IN BOOLEAN                  IsUser
+  IN UEFI_IMAGE_RECORD  *ImageRecord,
+  IN BOOLEAN            IsUser
   )
 {
   UEFI_IMAGE_RECORD_SEGMENT       *ImageRecordSegment;
