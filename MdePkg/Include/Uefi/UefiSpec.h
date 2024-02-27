@@ -1967,10 +1967,12 @@ typedef enum {
   SysCallLocateProtocol,
   SysCallOpenProtocol,
   SysCallInstallMultipleProtocolInterfaces,
-  SysCallAllocatePool,
-  SysCallFreePool,
   SysCallCloseProtocol,
   SysCallHandleProtocol,
+  SysCallAllocatePages,
+  SysCallFreePages,
+  SysCallRaiseTpl,
+  SysCallRestoreTpl,
   //
   // Protocols
   //
