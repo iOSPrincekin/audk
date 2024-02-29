@@ -29,7 +29,7 @@ CoreAcquireProtocolLock (
   VOID
   )
 {
-  CoreAcquireLock (&gProtocolDatabaseLock);
+  EfiAcquireLock (&gProtocolDatabaseLock);
 }
 
 /**
@@ -41,7 +41,7 @@ CoreReleaseProtocolLock (
   VOID
   )
 {
-  CoreReleaseLock (&gProtocolDatabaseLock);
+  EfiReleaseLock (&gProtocolDatabaseLock);
 }
 
 /**

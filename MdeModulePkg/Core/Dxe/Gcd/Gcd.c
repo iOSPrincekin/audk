@@ -266,7 +266,7 @@ CoreAcquireGcdMemoryLock (
   VOID
   )
 {
-  CoreAcquireLock (&mGcdMemorySpaceLock);
+  EfiAcquireLock (&mGcdMemorySpaceLock);
 }
 
 /**
@@ -278,7 +278,7 @@ CoreReleaseGcdMemoryLock (
   VOID
   )
 {
-  CoreReleaseLock (&mGcdMemorySpaceLock);
+  EfiReleaseLock (&mGcdMemorySpaceLock);
 }
 
 /**
@@ -290,7 +290,7 @@ CoreAcquireGcdIoLock (
   VOID
   )
 {
-  CoreAcquireLock (&mGcdIoSpaceLock);
+  EfiAcquireLock (&mGcdIoSpaceLock);
 }
 
 /**
@@ -302,7 +302,7 @@ CoreReleaseGcdIoLock (
   VOID
   )
 {
-  CoreReleaseLock (&mGcdIoSpaceLock);
+  EfiReleaseLock (&mGcdIoSpaceLock);
 }
 
 //

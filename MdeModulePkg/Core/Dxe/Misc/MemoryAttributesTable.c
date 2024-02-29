@@ -377,7 +377,7 @@ CoreAcquiremMemoryAttributesTableLock (
   VOID
   )
 {
-  CoreAcquireLock (&mMemoryAttributesTableLock);
+  EfiAcquireLock (&mMemoryAttributesTableLock);
 }
 
 /**
@@ -389,7 +389,7 @@ CoreReleasemMemoryAttributesTableLock (
   VOID
   )
 {
-  CoreReleaseLock (&mMemoryAttributesTableLock);
+  EfiReleaseLock (&mMemoryAttributesTableLock);
 }
 
 /**
