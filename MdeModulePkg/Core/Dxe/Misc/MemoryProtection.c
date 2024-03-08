@@ -234,7 +234,7 @@ ProtectUefiImage (
     //
     // CPU ARCH present. Update memory attribute directly.
     //
-    if (AsciiStrStr (PdbPointer, "Ntfs") != NULL) {
+    if (AsciiStrStr (PdbPointer, "Fat") != NULL) {
       SetUefiImageProtectionAttributes (ImageRecord, TRUE);
       *IsUserImage = TRUE;
     } else if (AsciiStrStr (PdbPointer, "Ring3") != NULL) {
