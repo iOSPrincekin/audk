@@ -1976,6 +1976,7 @@ typedef enum {
   SysCallFreePages,
   SysCallRaiseTpl,
   SysCallRestoreTpl,
+  SysCallLocateHandleBuffer,
   //
   // RuntimeServices
   //
@@ -1988,6 +1989,12 @@ typedef enum {
   SysCallBlockIoFlush,
   SysCallDiskIoRead,
   SysCallDiskIoWrite,
+  SysCallUnicodeStriColl,
+  SysCallUnicodeMetaiMatch,
+  SysCallUnicodeStrLwr,
+  SysCallUnicodeStrUpr,
+  SysCallUnicodeFatToStr,
+  SysCallUnicodeStrToFat,
   SysCallMax
 } SYS_CALL_TYPE;
 
