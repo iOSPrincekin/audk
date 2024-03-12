@@ -303,7 +303,10 @@
   MdeModulePkg/Bus/Isa/Ps2MouseDxe/Ps2MouseDxe.inf
   MdeModulePkg/Bus/Pci/NonDiscoverablePciDeviceDxe/NonDiscoverablePciDeviceDxe.inf
 
-  MdeModulePkg/Core/Dxe/DxeRing3/DxeRing3.inf
+  MdeModulePkg/Core/Dxe/DxeRing3/DxeRing3.inf {
+    <LibraryClasses>
+      MemoryPoolLib|MdeModulePkg/Library/MemoryPoolLib/MemoryPoolLib.inf
+  }
   MdeModulePkg/Core/DxeIplPeim/DxeIpl.inf
   MdeModulePkg/Core/Pei/PeiMain.inf
   MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
