@@ -344,6 +344,7 @@
   CpuArchLib|UefiCpuPkg/Library/CpuArchLib/CpuArchLib.inf
   MpInitLib|UefiCpuPkg/Library/MpInitLib/DxeMpInitLib.inf
   CpuPageTableLib|UefiCpuPkg/Library/CpuPageTableLib/CpuPageTableLib.inf
+  MemoryPoolLib|MdeModulePkg/Library/MemoryPoolLib/MemoryPoolLib.inf
 
 [LibraryClasses.common.DXE_DRIVER]
   PcdLib|MdePkg/Library/DxePcdLib/DxePcdLib.inf
@@ -740,6 +741,10 @@
   MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
   MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
   FatPkg/EnhancedFatDxe/Fat.inf
+  MdeModulePkg/Core/Dxe/DxeRing3/DxeRing3.inf {
+    <LibraryClasses>
+      MemoryPoolLib|MdeModulePkg/Library/MemoryPoolLib/MemoryPoolLib.inf
+  }
 !if $(ATA_ENABLE) == TRUE
   MdeModulePkg/Bus/Pci/SataControllerDxe/SataControllerDxe.inf
   MdeModulePkg/Bus/Ata/AtaBusDxe/AtaBusDxe.inf
