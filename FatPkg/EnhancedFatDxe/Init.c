@@ -93,7 +93,7 @@ FatAllocateVolume (
   //
   // Volume installed
   //
-  DEBUG ((DEBUG_INIT, "Installed Fat filesystem on %p\n", Handle));
+  // DEBUG ((DEBUG_INIT, "Installed Fat filesystem on %p\n", Handle));
   Volume->Valid = TRUE;
 
 Done:

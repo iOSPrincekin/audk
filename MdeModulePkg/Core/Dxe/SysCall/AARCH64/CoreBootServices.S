@@ -129,6 +129,9 @@ ASM_FUNC(ReturnToCore)
 //------------------------------------------------------------------------------
 ASM_FUNC(ArmSetPan)
   msr   pan, #1
+  // Problem 3: Nevertheless TLB invalidation is ignored by QEMU.
+  dsb   sy
+  isb
   ret
 
 //------------------------------------------------------------------------------
@@ -140,4 +143,6 @@ ASM_FUNC(ArmSetPan)
 //------------------------------------------------------------------------------
 ASM_FUNC(ArmClearPan)
   msr   pan, #0
+  dsb   sy
+  isb
   ret
