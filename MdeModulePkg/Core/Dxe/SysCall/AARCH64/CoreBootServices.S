@@ -73,12 +73,26 @@ ASM_FUNC(ArmCallRing3)
   msr  daifset, #0xf
   isb
   // Save registers.
-  sub  sp, sp, #0x180
+  sub  sp, sp, #0x300
 
-  stp  q8,  q9,  [sp, #0x160]
-  stp  q10, q11, [sp, #0x140]
-  stp  q12, q13, [sp, #0x120]
-  stp  q14, q15, [sp, #0x100]
+  stp  q0,  q1,  [sp, #0x2e0]
+  stp  q2,  q3,  [sp, #0x2c0]
+  stp  q4,  q5,  [sp, #0x2a0]
+  stp  q6,  q7,  [sp, #0x280]
+
+  stp  q8,  q9,  [sp, #0x260]
+  stp  q10, q11, [sp, #0x240]
+  stp  q12, q13, [sp, #0x220]
+  stp  q14, q15, [sp, #0x200]
+
+  stp  q16, q17, [sp, #0x1e0]
+  stp  q18, q19, [sp, #0x1c0]
+  stp  q20, q21, [sp, #0x1a0]
+  stp  q22, q23, [sp, #0x180]
+  stp  q24, q25, [sp, #0x160]
+  stp  q26, q27, [sp, #0x140]
+  stp  q28, q29, [sp, #0x120]
+  stp  q30, q31, [sp, #0x100]
 
   stp  xzr, x0, [sp, #0xf0]
   stp  x1, x2, [sp, #0xe0]
@@ -100,6 +114,8 @@ ASM_FUNC(ArmCallRing3)
   // Prepare Ring3 SP and EntryPoint.
   msr  sp_el0, x1
   msr  elr_el1, x2
+  msr  esr_el1, xzr
+  msr  far_el1, xzr
   // Save Core SP and switch to Ring3Call Stack.
   mov  x5, sp
   str  x5, [x4]
@@ -136,10 +152,24 @@ ASM_FUNC(ReturnToCore)
   // Switch to Core Stack.
   mov  sp, x1
   // Restore registers and Stack.
-  ldp  q8,  q9,  [sp, #0x160]
-  ldp  q10, q11, [sp, #0x140]
-  ldp  q12, q13, [sp, #0x120]
-  ldp  q14, q15, [sp, #0x100]
+  ldp  q0,  q1,  [sp, #0x2e0]
+  ldp  q2,  q3,  [sp, #0x2c0]
+  ldp  q4,  q5,  [sp, #0x2a0]
+  ldp  q6,  q7,  [sp, #0x280]
+
+  ldp  q8,  q9,  [sp, #0x260]
+  ldp  q10, q11, [sp, #0x240]
+  ldp  q12, q13, [sp, #0x220]
+  ldp  q14, q15, [sp, #0x200]
+
+  ldp  q16, q17, [sp, #0x1e0]
+  ldp  q18, q19, [sp, #0x1c0]
+  ldp  q20, q21, [sp, #0x1a0]
+  ldp  q22, q23, [sp, #0x180]
+  ldp  q24, q25, [sp, #0x160]
+  ldp  q26, q27, [sp, #0x140]
+  ldp  q28, q29, [sp, #0x120]
+  ldp  q30, q31, [sp, #0x100]
 
   ldr  x0, [sp, #0xf8]
   ldp  x1, x2, [sp, #0xe0]
@@ -158,7 +188,7 @@ ASM_FUNC(ReturnToCore)
   ldp  x25, x26, [sp, #0x20]
   ldp  x27, x28, [sp, #0x10]
   ldp  x29, x30, [sp]
-  add	 sp, sp, #0x180
+  add	 sp, sp, #0x300
   // Enable interrupts.
   msr  daifclr, #0xf
   isb
