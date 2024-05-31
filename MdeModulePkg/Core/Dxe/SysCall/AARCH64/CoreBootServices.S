@@ -69,15 +69,27 @@ call:
 //   (x4) &CoreSp
 //------------------------------------------------------------------------------
 ASM_FUNC(ArmCallRing3)
+  // Disable interrupts.
+  msr  daifset, #0xf
+  isb
   // Save registers.
-  sub  sp, sp, #0x100
+  sub  sp, sp, #0x180
 
-  stp  q8,  q9,  [sp, #0xe0]
-  stp  q10, q11, [sp, #0xc0]
-  stp  q12, q13, [sp, #0xa0]
-  stp  q14, q15, [sp, #0x80]
+  stp  q8,  q9,  [sp, #0x160]
+  stp  q10, q11, [sp, #0x140]
+  stp  q12, q13, [sp, #0x120]
+  stp  q14, q15, [sp, #0x100]
 
-  stp  xzr, x16, [sp, #0x70]
+  stp  xzr, x0, [sp, #0xf0]
+  stp  x1, x2, [sp, #0xe0]
+  stp  x3, x4, [sp, #0xd0]
+  stp  x5, x6, [sp, #0xc0]
+  stp  x7, x8,  [sp, #0xb0]
+  stp  x9, x10, [sp, #0xa0]
+  stp  x11, x12, [sp, #0x90]
+  stp  x13, x14, [sp, #0x80]
+
+  stp  x15, x16, [sp, #0x70]
   stp  x17, x18, [sp, #0x60]
   stp  x19, x20, [sp, #0x50]
   stp  x21, x22, [sp, #0x40]
@@ -85,9 +97,6 @@ ASM_FUNC(ArmCallRing3)
   stp  x25, x26, [sp, #0x20]
   stp  x27, x28, [sp, #0x10]
   stp  x29, x30, [sp]
-  // Disable interrupts.
-  msr  daifset, #0xf
-  isb
   // Prepare Ring3 SP and EntryPoint.
   msr  sp_el0, x1
   msr  elr_el1, x2
@@ -127,12 +136,21 @@ ASM_FUNC(ReturnToCore)
   // Switch to Core Stack.
   mov  sp, x1
   // Restore registers and Stack.
-  ldp  q8,  q9,  [sp, #0xe0]
-  ldp  q10, q11, [sp, #0xc0]
-  ldp  q12, q13, [sp, #0xa0]
-  ldp  q14, q15, [sp, #0x80]
+  ldp  q8,  q9,  [sp, #0x160]
+  ldp  q10, q11, [sp, #0x140]
+  ldp  q12, q13, [sp, #0x120]
+  ldp  q14, q15, [sp, #0x100]
 
-  ldr  x16, [sp, #0x78]
+  ldr  x0, [sp, #0xf8]
+  ldp  x1, x2, [sp, #0xe0]
+  ldp  x3, x4, [sp, #0xd0]
+  ldp  x5, x6, [sp, #0xc0]
+  ldp  x7, x8,  [sp, #0xb0]
+  ldp  x9, x10, [sp, #0xa0]
+  ldp  x11, x12, [sp, #0x90]
+  ldp  x13, x14, [sp, #0x80]
+
+  ldp  x15, x16, [sp, #0x70]
   ldp  x17, x18, [sp, #0x60]
   ldp  x19, x20, [sp, #0x50]
   ldp  x21, x22, [sp, #0x40]
@@ -140,7 +158,7 @@ ASM_FUNC(ReturnToCore)
   ldp  x25, x26, [sp, #0x20]
   ldp  x27, x28, [sp, #0x10]
   ldp  x29, x30, [sp]
-  add	 sp, sp, #0x100
+  add	 sp, sp, #0x180
   // Enable interrupts.
   msr  daifclr, #0xf
   isb
