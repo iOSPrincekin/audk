@@ -197,7 +197,8 @@ STATIC CHAR8  *gExceptionTypeString[] = {
 
 
 **/
-VOID
+EFI_STATUS
+EFIAPI
 DefaultExceptionHandler (
   IN     EFI_EXCEPTION_TYPE  ExceptionType,
   IN OUT EFI_SYSTEM_CONTEXT  SystemContext
@@ -316,4 +317,6 @@ DefaultExceptionHandler (
 
   // If some one is stepping past the exception handler adjust the PC to point to the next instruction
   SystemContext.SystemContextArm->PC += PcAdjust;
+
+  return EFI_SUCCESS;
 }
