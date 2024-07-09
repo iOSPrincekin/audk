@@ -227,7 +227,7 @@ DefaultExceptionHandler (
     return mSysCallHandler (
              SystemContext.SystemContextArm->R0,
              &(SystemContext.SystemContextArm->R1),
-             &(SystemContext.SystemContextArm->SP)
+             (VOID *)SystemContext.SystemContextArm->SP
              );
   }
 
