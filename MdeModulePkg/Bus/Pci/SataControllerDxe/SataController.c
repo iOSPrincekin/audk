@@ -321,7 +321,7 @@ SataControllerSupported (
     return EFI_UNSUPPORTED;
   }
 
-  if (IS_PCI_IDE (&PciData) || IS_PCI_SATADPA (&PciData)) {
+  if (IS_PCI_IDE (&PciData) || IS_PCI_SATADPA (&PciData) || IS_PCI_RAID (&PciData)) {
     return EFI_SUCCESS;
   }
 
@@ -472,7 +472,7 @@ SataControllerStart (
   if (IS_PCI_IDE (&PciData)) {
     Private->IdeInit.ChannelCount = IDE_MAX_CHANNEL;
     Private->DeviceCount          = IDE_MAX_DEVICES;
-  } else if (IS_PCI_SATADPA (&PciData)) {
+  } else if (IS_PCI_SATADPA (&PciData) || IS_PCI_RAID (&PciData)) {
     //
     // Read Ports Implemented(PI) to calculate max port number (0 based).
     //
