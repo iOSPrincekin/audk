@@ -604,6 +604,25 @@ EfiShellGetDevicePathFromFilePath (
   return (DevicePathForReturn);
 }
 
+STATIC
+CHAR16 *
+RealignString16 (
+  IN CONST VOID   *Source
+  )
+{
+  CHAR16        NextChar;
+  CONST UINT8   *Walker;
+
+  Walker = Source;
+
+  do {
+    NextChar = ReadUnaligned16 ((VOID *) Walker);
+    Walker += sizeof (CHAR16);
+  } while (NextChar != CHAR_NULL);
+
+  return AllocateCopyPool ((UINTN) (Walker - (CONST UINT8 *) Source), Source);
+}
+
 /**
   Gets the name of the device specified by the device handle.
 
@@ -661,6 +680,7 @@ EfiShellGetDeviceName (
   EFI_HANDLE                    *ParentControllerBuffer;
   UINTN                         ParentDriverCount;
   EFI_HANDLE                    *ParentDriverBuffer;
+  BOOLEAN                       NeedsRealign;
 
   if ((BestDeviceName == NULL) ||
       (DeviceHandle   == NULL)
@@ -791,7 +811,14 @@ EfiShellGetDeviceName (
     //
     if (DeviceNameToReturn != NULL) {
       ASSERT (BestDeviceName != NULL);
+      NeedsRealign = ((UINTN) DeviceNameToReturn & BIT0) != 0;
+      if (NeedsRealign) {
+        DeviceNameToReturn = RealignString16 (DeviceNameToReturn);
+      }
       StrnCatGrow (BestDeviceName, NULL, DeviceNameToReturn, 0);
+      if (NeedsRealign) {
+        FreePool (DeviceNameToReturn);
+      }
       return (EFI_SUCCESS);
     }
   }
