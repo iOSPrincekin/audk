@@ -625,7 +625,7 @@ AtaAtapiPassThruSupported (
     return EFI_UNSUPPORTED;
   }
 
-  if (IS_PCI_IDE (&PciData) || IS_PCI_SATADPA (&PciData)) {
+  if (IS_PCI_IDE (&PciData) || IS_PCI_SATADPA (&PciData) || IS_PCI_RAID (&PciData)) {
     return EFI_SUCCESS;
   }
 
@@ -1226,6 +1226,12 @@ EnumerateAttachedDevice (
       }
 
       break;
+    case PCI_CLASS_MASS_STORAGE_RAID:
+      Instance->AtaPassThruMode.Attributes &= ~EFI_ATA_PASS_THRU_ATTRIBUTES_PHYSICAL;
+      Instance->ExtScsiPassThruMode.Attributes &= ~EFI_EXT_SCSI_PASS_THRU_ATTRIBUTES_PHYSICAL;
+      //
+      // Fall through to AHCI
+      //
     case PCI_CLASS_MASS_STORAGE_SATADPA:
       //
       // The ATA controller is working at AHCI mode
