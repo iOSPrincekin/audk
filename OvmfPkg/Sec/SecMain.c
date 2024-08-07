@@ -927,18 +927,26 @@ SecCoreStartupWithStack (
   //
   // Initialize SEC hand-off state
   //
+  // 0x0048
   SecCoreData.DataSize = sizeof (EFI_SEC_PEI_HAND_OFF);
-
+  // 0x0000000000010000
   SecCoreData.TemporaryRamSize = (UINTN)PcdGet32 (PcdOvmfSecPeiTempRamSize);
+  // 0x0000000000810000
   SecCoreData.TemporaryRamBase = (VOID *)((UINT8 *)TopOfCurrentStack - SecCoreData.TemporaryRamSize);
-
+  
+  // 0x0000000000810000
   SecCoreData.PeiTemporaryRamBase = SecCoreData.TemporaryRamBase;
+  // 0x0000000000008000
   SecCoreData.PeiTemporaryRamSize = SecCoreData.TemporaryRamSize >> 1;
-
+  
+  // 0x0000000000818000
   SecCoreData.StackBase = (UINT8 *)SecCoreData.TemporaryRamBase + SecCoreData.PeiTemporaryRamSize;
+  // 0x0000000000008000
   SecCoreData.StackSize = SecCoreData.TemporaryRamSize >> 1;
 
+  // 0x00000000fffc6000
   SecCoreData.BootFirmwareVolumeBase = BootFv;
+  // 0x000000000003a000
   SecCoreData.BootFirmwareVolumeSize = (UINTN)BootFv->FvLength;
 
   //
