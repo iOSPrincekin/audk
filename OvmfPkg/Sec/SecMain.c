@@ -427,7 +427,7 @@ DecompressMemFvs (
     (PcdGet32 (PcdOvmfPeiMemFvSize) + sizeof (*FvSection))
     );
   ASSERT (FvSection->Type == EFI_SECTION_FIRMWARE_VOLUME_IMAGE);
-
+  // 0x0000000000820000
   PeiMemFv = (EFI_FIRMWARE_VOLUME_HEADER *)(UINTN)PcdGet32 (PcdOvmfPeiMemFvBase);
   CopyMem (PeiMemFv, (VOID *)(FvSection + 1), PcdGet32 (PcdOvmfPeiMemFvSize));
 
@@ -460,7 +460,7 @@ DecompressMemFvs (
   }
 
   ASSERT (FvSectionSize == (PcdGet32 (PcdOvmfDxeMemFvSize) + FvHeaderSize));
-
+  // 0x0000000000930000
   DxeMemFv = (EFI_FIRMWARE_VOLUME_HEADER *)(UINTN)PcdGet32 (PcdOvmfDxeMemFvBase);
   CopyMem (DxeMemFv, (VOID *)((UINTN)FvSection + FvHeaderSize), PcdGet32 (PcdOvmfDxeMemFvSize));
 
