@@ -35,6 +35,7 @@ ASM_PFX(SetJump):
     call    ASM_PFX(InternalAssertJumpBuffer)
     add     rsp, 0x20
     pop     rcx
+    // 将栈顶的函数返回地址 pop 到 rdx寄存器中
     pop     rdx
 
     xor     rax, rax
@@ -53,7 +54,7 @@ ASM_PFX(SetJump):
     mov     [rcx + 0xF8], rax            ; save SSP
 
 CetDone:
-
+    // 保存寄存器
     mov     [rcx], rbx
     mov     [rcx + 8], rsp
     mov     [rcx + 0x10], rbp
@@ -63,6 +64,7 @@ CetDone:
     mov     [rcx + 0x30], r13
     mov     [rcx + 0x38], r14
     mov     [rcx + 0x40], r15
+    // 保存返回地址
     mov     [rcx + 0x48], rdx
     ; save non-volatile fp registers
     stmxcsr [rcx + 0x50]
