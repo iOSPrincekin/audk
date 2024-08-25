@@ -139,3 +139,43 @@ This allows input and output formats to be processed independently of each other
 At the same time, operations such as relocating an image became format-independent, contributing to improved extensibility.
 Because we designed the intermediate representation to be semi-canonical, we were able to use it to reduce the validation of the output file
 to parsing the input file and comparing the resulting intermediate representation to the original one.
+
+# 问题
+
+## 1.将   Context->RelocsStripped = (UeHdr->ImageInfo & UE_HEADER_IMAGE_INFO_RELOCATION_FIXUPS_STRIPPED) != 0; 改为   Context->RelocsStripped = TRUE; 导致 build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t XCODE5 -b DEBUG  编译报错
+
+```
+ASSERT [BaseTools] UeImageLib.c(181): ((BOOLEAN)(0==1))
+build.py... : error 7000: Failed to generate FV
+```
+
+```
+ImageTool GenImage -c UE -o /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/FV/Ffs/A210F973-229D-4f4d-AA37-9895E6C9EABADpcDxe/A210F973-229D-4f4d-AA37-9895E6C9EABAUe.raw /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/X64/NetworkPkg/DpcDxe/DpcDxe/OUTPUT/DpcDxe.efi
+ImageTool GenImage -c UE -o /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/FV/Ffs/A19B1FE7-C1BC-49F8-875F-54A5D542443FCpuIo2Dxe/A19B1FE7-C1BC-49F8-875F-54A5D542443FUe.raw /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/X64/UefiCpuPkg/CpuIo2Dxe/CpuIo2Dxe/OUTPUT/CpuIo2Dxe.efi
+Assertion failed: (Status == RETURN_OUT_OF_RESOURCES), function ValidateOutputFile, file ImageToolEmit.c, line 66.
+make: *** [/Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/FV/Ffs/A19B1FE7-C1BC-49F8-875F-54A5D542443FCpuIo2Dxe/A19B1FE7-C1BC-49F8-875F-54A5D542443FUe.raw] Abort trap: 6
+
+
+build.py...
+ : error 7000: Failed to execute command
+	make tbuild [/Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/Build/OvmfX64/DEBUG_XCODE5/X64/UefiCpuPkg/CpuIo2Dxe/CpuIo2Dxe]
+
+```
+
+解决办法：
+
+1.恢复代码 Context->RelocsStripped = (UeHdr->ImageInfo & UE_HEADER_IMAGE_INFO_RELOCATION_FIXUPS_STRIPPED) != 0;
+
+2.删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/ImageTool/Darwin_X64
+
+3.删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/ImageTool/ImageTool
+
+4.删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/C/bin
+
+5.删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/C/obj
+
+6.删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/C/libs/libCommon.a
+
+7.进入 ~/Desktop/Computer_Systems/UEFI/KVM-Opencore 文件夹，重新 make
+
+8.重新编译 build -a X64 -p OvmfPkg/OvmfPkgX64.dsc -t XCODE5 -b DEBUG

@@ -1067,12 +1067,12 @@ TemporaryRamMigration (
   InitializeDebugAgent (DEBUG_AGENT_INIT_POSTMEM_SEC, (VOID *)&DebugAgentContext, NULL);
 
   //
-  // Migrate Heap
+  // Migrate Heap   NewHeap:0x000000007bf3e000,OldHeap:0x0000000000810000
   //
   CopyMem (NewHeap, OldHeap, CopySize >> 1);
 
   //
-  // Migrate Stack
+  // Migrate Stack  NewStack:0x000000007bf36000,OldStack:0x0000000000818000
   //
   CopyMem (NewStack, OldStack, CopySize >> 1);
 
