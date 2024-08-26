@@ -503,6 +503,19 @@ CoreIsImageTypeSupported (
          EFI_IMAGE_MACHINE_CROSS_TYPE_SUPPORTED (UefiImageGetMachine (ImageContext));
 }
 
+void testGetDllAddress()
+{
+  DEBUG ((DEBUG_INFO, "testGetDllAddress---\n"));
+}
+
+int strcmp_custom(const char *s1, const char *s2) {
+    while (*s1 && *s2 && *s1 == *s2) {
+        s1++;
+        s2++;
+    }
+    return *(unsigned char *)s1 - *(unsigned char *)s2;
+}
+
 /**
   Loads, relocates, and invokes a PE/COFF image
 
@@ -811,7 +824,11 @@ CoreLoadPeImage (
   // Print Module Name by Pdb file path.
   //
   if (!EFI_ERROR (Status)) {
-    DEBUG ((DEBUG_INFO | DEBUG_LOAD, "%a", EfiFileName));
+    DEBUG ((DEBUG_INFO | DEBUG_LOAD, "%a,----", EfiFileName));
+    if(strcmp_custom("OpenCanopy.efi",EfiFileName) == 0 || strcmp_custom("OpenCore.efi",EfiFileName) == 0)
+    {
+        testGetDllAddress();
+    }
   }
   DEBUG ((DEBUG_INFO | DEBUG_LOAD, "\n"));
 
