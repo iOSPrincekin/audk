@@ -299,6 +299,11 @@ DxeSmmReadyToLock (
   }
 }
 
+void testGetBootAddrees()
+{
+    DEBUG ((DEBUG_INFO,"---testGetBootAddrees---\n"));
+}
+
 /**
   Defer the 3rd party image load and installs Deferred Image Load Protocol.
 
@@ -347,7 +352,9 @@ Defer3rdPartyImageLoad (
   }
 
   DEBUG_CODE_END ();
-
+    
+  testGetBootAddrees();
+    
   if (mEndOfDxe) {
     mImageLoadedAfterEndOfDxe = TRUE;
     //

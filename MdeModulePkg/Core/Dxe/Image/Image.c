@@ -505,7 +505,7 @@ CoreIsImageTypeSupported (
 
 void testGetDllAddress()
 {
-  DEBUG ((DEBUG_INFO, "testGetDllAddress---\n"));
+  DEBUG ((DEBUG_INFO, "---testGetDllAddress---\n"));
 }
 
 int strcmp_custom(const char *s1, const char *s2) {
@@ -824,8 +824,8 @@ CoreLoadPeImage (
   // Print Module Name by Pdb file path.
   //
   if (!EFI_ERROR (Status)) {
-    DEBUG ((DEBUG_INFO | DEBUG_LOAD, "%a,----", EfiFileName));
-    if(strcmp_custom("OpenCanopy.efi",EfiFileName) == 0 || strcmp_custom("OpenCore.efi",EfiFileName) == 0)
+    DEBUG ((DEBUG_INFO | DEBUG_LOAD, "%a\n", EfiFileName));
+    if(strcmp_custom("OpenCanopy.efi",EfiFileName) == 0 || strcmp_custom("OpenCore.efi",EfiFileName) == 0 || strcmp_custom("SecurityStubDxe.efi",EfiFileName) == 0)
     {
         testGetDllAddress();
     }
