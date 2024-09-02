@@ -8,6 +8,7 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 
 #include "DxeMain.h"
 #include "Image.h"
+#include <Library/TimerLib.h>
 
 //
 // Module Globals
@@ -1047,6 +1048,42 @@ CoreUnloadAndCloseImage (
   CoreFreePool (Image);
 }
 
+void testGetBootAddrees()
+{
+    DEBUG ((DEBUG_INFO,"---testGetBootAddrees---\n"));
+}
+
+void testMicroSecondDelay()
+{
+    DEBUG ((DEBUG_INFO,"---testMicroSecondDelay---\n"));
+}
+
+int strlen(const CHAR16 *str) {
+    const CHAR16 *s;
+    for (s = str; *s; ++s);
+    return (s - str);
+}
+
+int stringIsContainSubString(CHAR16 *str, CHAR16 *sub) {
+    int i, j;
+    int strLen = strlen(str);
+    int subLen = strlen(sub);
+
+    for (i = 0; i <= strLen - subLen; i++) {
+        for (j = 0; j < subLen; j++) {
+            if (str[i + j] != sub[j]) {
+                break;
+            }
+        }
+        if (j == subLen) {
+            return TRUE; // Substring found
+        }
+    }
+
+    return FALSE; // Substring not found
+}
+
+
 /**
   Loads an EFI image into memory and returns a handle to the image.
 
@@ -1424,6 +1461,15 @@ CoreLoadImageCommon (
   //
   if (OriginalFilePath != NULL) {
     Image->LoadedImageDevicePath = DuplicateDevicePath (OriginalFilePath);
+  }
+
+  CHAR16* DevicePathStr = ConvertDevicePathToText (OriginalFilePath, FALSE, FALSE);
+  DEBUG ((DEBUG_INFO,"DevicePathStr::%a\n",DevicePathStr));
+
+  if(stringIsContainSubString(DevicePathStr,L"boot.efi")){
+    testGetBootAddrees();
+    MicroSecondDelay(30*1000000);
+    testMicroSecondDelay();
   }
 
   //

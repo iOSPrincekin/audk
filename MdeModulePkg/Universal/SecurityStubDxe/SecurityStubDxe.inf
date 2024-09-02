@@ -37,6 +37,7 @@
   SecurityManagementLib
   ReportStatusCodeLib
   UefiLib
+  TimerLib
 
 [Guids]
   gEfiEndOfDxeEventGroupGuid                    ## CONSUMES ## Event

@@ -497,9 +497,9 @@ typedef struct {
 /// Union of all the possible HOB Types.
 ///
 typedef union {
-  EFI_HOB_GENERIC_HEADER                 *Header;
-  EFI_HOB_HANDOFF_INFO_TABLE             *HandoffInformationTable;
-  EFI_HOB_MEMORY_ALLOCATION              *MemoryAllocation;
+  EFI_HOB_GENERIC_HEADER                 *Header;   // 8
+  EFI_HOB_HANDOFF_INFO_TABLE             *HandoffInformationTable; // 8
+  EFI_HOB_MEMORY_ALLOCATION              *MemoryAllocation; // 8
   EFI_HOB_MEMORY_ALLOCATION_BSP_STORE    *MemoryAllocationBspStore;
   EFI_HOB_MEMORY_ALLOCATION_STACK        *MemoryAllocationStack;
   EFI_HOB_MEMORY_ALLOCATION_MODULE       *MemoryAllocationModule;
