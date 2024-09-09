@@ -257,14 +257,14 @@ EFI_STATUS
 /// determining the processor frequency.
 ///
 struct _EFI_CPU_ARCH_PROTOCOL {
-  EFI_CPU_FLUSH_DATA_CACHE              FlushDataCache;
-  EFI_CPU_ENABLE_INTERRUPT              EnableInterrupt;
-  EFI_CPU_DISABLE_INTERRUPT             DisableInterrupt;
-  EFI_CPU_GET_INTERRUPT_STATE           GetInterruptState;
-  EFI_CPU_INIT                          Init;
-  EFI_CPU_REGISTER_INTERRUPT_HANDLER    RegisterInterruptHandler;
-  EFI_CPU_GET_TIMER_VALUE               GetTimerValue;
-  EFI_CPU_SET_MEMORY_ATTRIBUTES         SetMemoryAttributes;
+  EFI_CPU_FLUSH_DATA_CACHE              FlushDataCache; // 8
+  EFI_CPU_ENABLE_INTERRUPT              EnableInterrupt; // 8
+  EFI_CPU_DISABLE_INTERRUPT             DisableInterrupt; // 8
+  EFI_CPU_GET_INTERRUPT_STATE           GetInterruptState; // 8
+  EFI_CPU_INIT                          Init; // 8
+  EFI_CPU_REGISTER_INTERRUPT_HANDLER    RegisterInterruptHandler; // 8
+  EFI_CPU_GET_TIMER_VALUE               GetTimerValue; // 8
+  EFI_CPU_SET_MEMORY_ATTRIBUTES         SetMemoryAttributes; // 8
   ///
   /// The number of timers that are available in a processor. The value in this
   /// field is a constant that must not be modified after the CPU Architectural
