@@ -76,7 +76,7 @@ typedef struct {
   UINT32    Nanosecond;
   INT16     TimeZone;
   UINT8     Daylight;
-  UINT8     Pad2;
+  UINT8     Pad2;   // 16
 } EFI_TIME;
 
 ///

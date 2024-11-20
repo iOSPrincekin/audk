@@ -1878,9 +1878,9 @@ typedef struct {
   //
   EFI_ALLOCATE_PAGES                            AllocatePages;  // 8
   EFI_FREE_PAGES                                FreePages;  // 8
-  EFI_GET_MEMORY_MAP                            GetMemoryMap; // 8
+  EFI_GET_MEMORY_MAP                            GetMemoryMap; // 8  64
   EFI_ALLOCATE_POOL                             AllocatePool; // 8
-  EFI_FREE_POOL                                 FreePool; // 8
+  EFI_FREE_POOL                                 FreePool; // 8 80
 
   //
   // Event & Timer Services
@@ -1897,7 +1897,7 @@ typedef struct {
   //
   EFI_INSTALL_PROTOCOL_INTERFACE                InstallProtocolInterface; // 8
   EFI_REINSTALL_PROTOCOL_INTERFACE              ReinstallProtocolInterface; // 8
-  EFI_UNINSTALL_PROTOCOL_INTERFACE              UninstallProtocolInterface; // 8
+  EFI_UNINSTALL_PROTOCOL_INTERFACE              UninstallProtocolInterface; // 8 152
   EFI_HANDLE_PROTOCOL                           HandleProtocol; // 8
   VOID                                          *Reserved; // 8
   EFI_REGISTER_PROTOCOL_NOTIFY                  RegisterProtocolNotify; // 8
@@ -1912,33 +1912,33 @@ typedef struct {
   EFI_IMAGE_START                               StartImage; // 8
   EFI_EXIT                                      Exit; // 8
   EFI_IMAGE_UNLOAD                              UnloadImage; // 8
-  EFI_EXIT_BOOT_SERVICES                        ExitBootServices; // 8
+  EFI_EXIT_BOOT_SERVICES                        ExitBootServices; // 8      248
 
   //
   // Miscellaneous Services
   //
-  EFI_GET_NEXT_MONOTONIC_COUNT                  GetNextMonotonicCount; // 8
+  EFI_GET_NEXT_MONOTONIC_COUNT                  GetNextMonotonicCount; // 8   256
   EFI_STALL                                     Stall; // 8
-  EFI_SET_WATCHDOG_TIMER                        SetWatchdogTimer; // 8
+  EFI_SET_WATCHDOG_TIMER                        SetWatchdogTimer; // 8      264
 
   //
   // DriverSupport Services
   //
-  EFI_CONNECT_CONTROLLER                        ConnectController; // 8
-  EFI_DISCONNECT_CONTROLLER                     DisconnectController; // 8
+  EFI_CONNECT_CONTROLLER                        ConnectController; // 8      272
+  EFI_DISCONNECT_CONTROLLER                     DisconnectController; // 8   280
 
   //
   // Open and Close Protocol Services
   //
-  EFI_OPEN_PROTOCOL                             OpenProtocol; // 8
-  EFI_CLOSE_PROTOCOL                            CloseProtocol; // 8
-  EFI_OPEN_PROTOCOL_INFORMATION                 OpenProtocolInformation; // 8
+  EFI_OPEN_PROTOCOL                             OpenProtocol; // 8            288
+  EFI_CLOSE_PROTOCOL                            CloseProtocol; // 8           296
+  EFI_OPEN_PROTOCOL_INFORMATION                 OpenProtocolInformation; // 8  304
 
   //
   // Library Services
   //
-  EFI_PROTOCOLS_PER_HANDLE                      ProtocolsPerHandle; // 8
-  EFI_LOCATE_HANDLE_BUFFER                      LocateHandleBuffer; // 8
+  EFI_PROTOCOLS_PER_HANDLE                      ProtocolsPerHandle; // 8   312
+  EFI_LOCATE_HANDLE_BUFFER                      LocateHandleBuffer; // 8   320
   EFI_LOCATE_PROTOCOL                           LocateProtocol; // 8
   EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES      InstallMultipleProtocolInterfaces; // 8
   EFI_UNINSTALL_MULTIPLE_PROTOCOL_INTERFACES    UninstallMultipleProtocolInterfaces; // 8
@@ -1951,7 +1951,7 @@ typedef struct {
   //
   // Miscellaneous Services
   //
-  EFI_COPY_MEM                                  CopyMem; // 8
+  EFI_COPY_MEM                                  CopyMem; // 8  360
   EFI_SET_MEM                                   SetMem; // 8
   EFI_CREATE_EVENT_EX                           CreateEventEx; // 8
 } EFI_BOOT_SERVICES;
@@ -1983,7 +1983,7 @@ typedef struct {
   /// A pointer to a null terminated string that identifies the vendor
   /// that produces the system firmware for the platform.
   ///
-  CHAR16                             *FirmwareVendor; // 2
+  CHAR16                             *FirmwareVendor; // 8
   ///
   /// A firmware vendor specific value that identifies the revision
   /// of the system firmware for the platform.

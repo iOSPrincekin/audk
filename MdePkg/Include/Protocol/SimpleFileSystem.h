@@ -531,16 +531,16 @@ struct _EFI_FILE_PROTOCOL {
   /// by this specification is EFI_FILE_PROTOCOL_LATEST_REVISION.
   /// Future versions are required to be backward compatible to version 1.0.
   ///
-  UINT64                   Revision;
-  EFI_FILE_OPEN            Open;
-  EFI_FILE_CLOSE           Close;
-  EFI_FILE_DELETE          Delete;
-  EFI_FILE_READ            Read;
-  EFI_FILE_WRITE           Write;
-  EFI_FILE_GET_POSITION    GetPosition;
-  EFI_FILE_SET_POSITION    SetPosition;
-  EFI_FILE_GET_INFO        GetInfo;
-  EFI_FILE_SET_INFO        SetInfo;
+  UINT64                   Revision;  // 8
+  EFI_FILE_OPEN            Open;   // 16
+  EFI_FILE_CLOSE           Close;  // 24
+  EFI_FILE_DELETE          Delete; // 32
+  EFI_FILE_READ            Read;   // 40
+  EFI_FILE_WRITE           Write;  // 48
+  EFI_FILE_GET_POSITION    GetPosition; // 56
+  EFI_FILE_SET_POSITION    SetPosition; // 64
+  EFI_FILE_GET_INFO        GetInfo;     // 72
+  EFI_FILE_SET_INFO        SetInfo;     // 80
   EFI_FILE_FLUSH           Flush;
   EFI_FILE_OPEN_EX         OpenEx;
   EFI_FILE_READ_EX         ReadEx;
