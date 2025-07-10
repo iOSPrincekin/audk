@@ -1075,7 +1075,7 @@ int stringIsContainSubString(CHAR16 *str, CHAR16 *sub) {
                 break;
             }
         }
-        if (j == subLen) {
+        if (j + 1 == subLen) {
             return TRUE; // Substring found
         }
     }
@@ -1464,11 +1464,11 @@ CoreLoadImageCommon (
   }
 
   CHAR16* DevicePathStr = ConvertDevicePathToText (OriginalFilePath, FALSE, FALSE);
-  DEBUG ((DEBUG_INFO,"DevicePathStr::%a\n",DevicePathStr));
+  DEBUG ((DEBUG_INFO,"DevicePathStr::%s\n",DevicePathStr));
 
-  if(stringIsContainSubString(DevicePathStr,L"boot.efi")){
+  if(stringIsContainSubString(DevicePathStr,L"boot_bigSur.")){
     testGetBootAddrees();
-    MicroSecondDelay(30*1000000);
+    MicroSecondDelay(10*1000000);
     testMicroSecondDelay();
   }
 

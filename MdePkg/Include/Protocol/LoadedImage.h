@@ -41,16 +41,16 @@
 /// Can be used on any image handle to obtain information about the loaded image.
 ///
 typedef struct {
-  UINT32                      Revision;     ///< Defines the revision of the EFI_LOADED_IMAGE_PROTOCOL structure.
+  UINT32                      Revision;     ///< Defines the revision of the EFI_LOADED_IMAGE_PROTOCOL structure.    // 8
                                             ///< All future revisions will be backward compatible to the current revision.
-  EFI_HANDLE                  ParentHandle; ///< Parent image's image handle. NULL if the image is loaded directly from
+  EFI_HANDLE                  ParentHandle; ///< Parent image's image handle. NULL if the image is loaded directly from      // 16
                                             ///< the firmware's boot manager.
-  EFI_SYSTEM_TABLE            *SystemTable; ///< the image's EFI system table pointer.
+  EFI_SYSTEM_TABLE            *SystemTable; ///< the image's EFI system table pointer.  // 24
 
   //
   // Source location of image
   //
-  EFI_HANDLE                  DeviceHandle; ///< The device handle that the EFI Image was loaded from.
+  EFI_HANDLE                  DeviceHandle; ///< The device handle that the EFI Image was loaded from.   // 32
   EFI_DEVICE_PATH_PROTOCOL    *FilePath;    ///< A pointer to the file path portion specific to DeviceHandle
                                             ///< that the EFI Image was loaded from.
   VOID                        *Reserved;    ///< Reserved. DO NOT USE.

@@ -72,7 +72,7 @@ typedef struct {
   UINT8     Hour;
   UINT8     Minute;
   UINT8     Second;
-  UINT8     Pad1;
+  UINT8     Pad1;    // 8
   UINT32    Nanosecond;
   INT16     TimeZone;
   UINT8     Daylight;
