@@ -37,15 +37,15 @@ typedef struct {
   ///
   /// Identifies the HOB data structure type.
   ///
-  UINT16    HobType;
+  UINT16    HobType;   // 2
   ///
   /// The length in bytes of the HOB.
   ///
-  UINT16    HobLength;
+  UINT16    HobLength;   // 2
   ///
   /// This field must always be set to zero.
   ///
-  UINT32    Reserved;
+  UINT32    Reserved;   // 4
 } EFI_HOB_GENERIC_HEADER;
 
 ///
@@ -61,22 +61,22 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_HANDOFF.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;   // 8
   ///
   /// The version number pertaining to the PHIT HOB definition.
   /// This value is four bytes in length to provide an 8-byte aligned entry
   /// when it is combined with the 4-byte BootMode.
   ///
-  UINT32                    Version;
+  UINT32                    Version;  // 4
   ///
   /// The system boot mode as determined during the HOB producer phase.
   ///
-  EFI_BOOT_MODE             BootMode;
+  EFI_BOOT_MODE             BootMode;  // 4
   ///
   /// The highest address location of memory that is allocated for use by the HOB producer
   /// phase. This address must be 4-KB aligned to meet page restrictions of UEFI.
   ///
-  EFI_PHYSICAL_ADDRESS      EfiMemoryTop;
+  EFI_PHYSICAL_ADDRESS      EfiMemoryTop; // 8
   ///
   /// The lowest address location of memory that is allocated for use by the HOB producer phase.
   ///
@@ -109,31 +109,31 @@ typedef struct {
   /// Type EFI_GUID is defined in InstallProtocolInterface() in the UEFI 2.0
   /// specification.
   ///
-  EFI_GUID                Name;
+  EFI_GUID                Name;  // 16
 
   ///
   /// The base address of memory allocated by this HOB. Type
   /// EFI_PHYSICAL_ADDRESS is defined in AllocatePages() in the UEFI 2.0
   /// specification.
   ///
-  EFI_PHYSICAL_ADDRESS    MemoryBaseAddress;
+  EFI_PHYSICAL_ADDRESS    MemoryBaseAddress;   // 8
 
   ///
   /// The length in bytes of memory allocated by this HOB.
   ///
-  UINT64                  MemoryLength;
+  UINT64                  MemoryLength;  // 8
 
   ///
   /// Defines the type of memory allocated by this HOB. The memory type definition
   /// follows the EFI_MEMORY_TYPE definition. Type EFI_MEMORY_TYPE is defined
   /// in AllocatePages() in the UEFI 2.0 specification.
   ///
-  EFI_MEMORY_TYPE         MemoryType;
+  EFI_MEMORY_TYPE         MemoryType;  // 1
 
   ///
   /// Padding for Itanium processor family
   ///
-  UINT8                   Reserved[4];
+  UINT8                   Reserved[4];  // 4
 } EFI_HOB_MEMORY_ALLOCATION_HEADER;
 
 ///
@@ -199,7 +199,7 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_MEMORY_ALLOCATION.
   ///
-  EFI_HOB_GENERIC_HEADER              Header;
+  EFI_HOB_GENERIC_HEADER              Header;  // 8
   ///
   /// An instance of the EFI_HOB_MEMORY_ALLOCATION_HEADER that describes the
   /// various attributes of the logical memory allocation.
@@ -314,12 +314,12 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_RESOURCE_DESCRIPTOR.
   ///
-  EFI_HOB_GENERIC_HEADER         Header;
+  EFI_HOB_GENERIC_HEADER         Header;  // 8
   ///
   /// A GUID representing the owner of the resource. This GUID is used by HOB
   /// consumer phase components to correlate device ownership of a resource.
   ///
-  EFI_GUID                       Owner;
+  EFI_GUID                       Owner;  // 16
   ///
   /// The resource type enumeration as defined by EFI_RESOURCE_TYPE.
   ///
@@ -346,11 +346,11 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_GUID_EXTENSION.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;   // 8
   ///
   /// A GUID that defines the contents of this HOB.
   ///
-  EFI_GUID                  Name;
+  EFI_GUID                  Name;    // 16
   //
   // Guid specific data goes here
   //
@@ -363,15 +363,15 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;    // 8
   ///
   /// The physical memory-mapped base address of the firmware volume.
   ///
-  EFI_PHYSICAL_ADDRESS      BaseAddress;
+  EFI_PHYSICAL_ADDRESS      BaseAddress;  // 8
   ///
   /// The length in bytes of the firmware volume.
   ///
-  UINT64                    Length;
+  UINT64                    Length;    // 8
 } EFI_HOB_FIRMWARE_VOLUME;
 
 ///
@@ -382,23 +382,23 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV2.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;   // 8
   ///
   /// The physical memory-mapped base address of the firmware volume.
   ///
-  EFI_PHYSICAL_ADDRESS      BaseAddress;
+  EFI_PHYSICAL_ADDRESS      BaseAddress;  // 8
   ///
   /// The length in bytes of the firmware volume.
   ///
-  UINT64                    Length;
+  UINT64                    Length;  // 8
   ///
   /// The name of the firmware volume.
   ///
-  EFI_GUID                  FvName;
+  EFI_GUID                  FvName;   // 16
   ///
   /// The name of the firmware file that contained this firmware volume.
   ///
-  EFI_GUID                  FileName;
+  EFI_GUID                  FileName;  // 16
 } EFI_HOB_FIRMWARE_VOLUME2;
 
 ///
@@ -409,34 +409,34 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_FV3.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;   // 8
   ///
   /// The physical memory-mapped base address of the firmware volume.
   ///
-  EFI_PHYSICAL_ADDRESS      BaseAddress;
+  EFI_PHYSICAL_ADDRESS      BaseAddress;  // 8
   ///
   /// The length in bytes of the firmware volume.
   ///
-  UINT64                    Length;
+  UINT64                    Length;   // 8
   ///
   /// The authentication status.
   ///
-  UINT32                    AuthenticationStatus;
+  UINT32                    AuthenticationStatus;  // 4
   ///
   /// TRUE if the FV was extracted as a file within another firmware volume.
   /// FALSE otherwise.
   ///
-  BOOLEAN                   ExtractedFv;
+  BOOLEAN                   ExtractedFv;  // 1
   ///
   /// The name of the firmware volume.
   /// Valid only if IsExtractedFv is TRUE.
   ///
-  EFI_GUID                  FvName;
+  EFI_GUID                  FvName;  // 16
   ///
   /// The name of the firmware file that contained this firmware volume.
   /// Valid only if IsExtractedFv is TRUE.
   ///
-  EFI_GUID                  FileName;
+  EFI_GUID                  FileName;  // 16
 } EFI_HOB_FIRMWARE_VOLUME3;
 
 ///
@@ -446,19 +446,19 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_CPU.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;  // 8
   ///
   /// Identifies the maximum physical memory addressability of the processor.
   ///
-  UINT8                     SizeOfMemorySpace;
+  UINT8                     SizeOfMemorySpace;  // 1
   ///
   /// Identifies the maximum physical I/O addressability of the processor.
   ///
-  UINT8                     SizeOfIoSpace;
+  UINT8                     SizeOfIoSpace;   // 1
   ///
   /// This field will always be set to zero.
   ///
-  UINT8                     Reserved[6];
+  UINT8                     Reserved[6];  // 6
 } EFI_HOB_CPU;
 
 ///
@@ -468,7 +468,7 @@ typedef struct {
   ///
   /// The HOB generic header. Header.HobType = EFI_HOB_TYPE_MEMORY_POOL.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;  // 8
 } EFI_HOB_MEMORY_POOL;
 
 ///
@@ -482,15 +482,15 @@ typedef struct {
   ///
   /// The HOB generic header where Header.HobType = EFI_HOB_TYPE_UEFI_CAPSULE.
   ///
-  EFI_HOB_GENERIC_HEADER    Header;
+  EFI_HOB_GENERIC_HEADER    Header;   // 8
 
   ///
   /// The physical memory-mapped base address of an UEFI capsule. This value is set to
   /// point to the base of the contiguous memory of the UEFI capsule.
   /// The length of the contiguous memory in bytes.
   ///
-  EFI_PHYSICAL_ADDRESS      BaseAddress;
-  UINT64                    Length;
+  EFI_PHYSICAL_ADDRESS      BaseAddress;  // 8
+  UINT64                    Length;   // 8
 } EFI_HOB_UEFI_CAPSULE;
 
 ///

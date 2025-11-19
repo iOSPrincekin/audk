@@ -51,9 +51,9 @@ typedef struct {
   // Source location of image
   //
   EFI_HANDLE                  DeviceHandle; ///< The device handle that the EFI Image was loaded from.   // 32
-  EFI_DEVICE_PATH_PROTOCOL    *FilePath;    ///< A pointer to the file path portion specific to DeviceHandle
+  EFI_DEVICE_PATH_PROTOCOL    *FilePath;    ///< A pointer to the file path portion specific to DeviceHandle  // 40
                                             ///< that the EFI Image was loaded from.
-  VOID                        *Reserved;    ///< Reserved. DO NOT USE.
+  VOID                        *Reserved;    ///< Reserved. DO NOT USE.      // 48
 
   //
   // Images load options

@@ -39,47 +39,47 @@ typedef enum {
   ///
   /// Not used.
   ///
-  EfiReservedMemoryType,
+  EfiReservedMemoryType,                        // 0
   ///
   /// The code portions of a loaded application.
   /// (Note that UEFI OS loaders are UEFI applications.)
   ///
-  EfiLoaderCode,
+  EfiLoaderCode,                                // 1
   ///
   /// The data portions of a loaded application and the default data allocation
   /// type used by an application to allocate pool memory.
   ///
-  EfiLoaderData,
+  EfiLoaderData,                                // 2
   ///
   /// The code portions of a loaded Boot Services Driver.
   ///
-  EfiBootServicesCode,
+  EfiBootServicesCode,                          // 3
   ///
   /// The data portions of a loaded Boot Serves Driver, and the default data
   /// allocation type used by a Boot Services Driver to allocate pool memory.
   ///
-  EfiBootServicesData,
+  EfiBootServicesData,                          // 4
   ///
   /// The code portions of a loaded Runtime Services Driver.
   ///
-  EfiRuntimeServicesCode,
+  EfiRuntimeServicesCode,                       // 5
   ///
   /// The data portions of a loaded Runtime Services Driver and the default
   /// data allocation type used by a Runtime Services Driver to allocate pool memory.
   ///
-  EfiRuntimeServicesData,
+  EfiRuntimeServicesData,                       // 6
   ///
   /// Free (unallocated) memory.
   ///
-  EfiConventionalMemory,
+  EfiConventionalMemory,                        // 7
   ///
   /// Memory in which errors have been detected.
   ///
-  EfiUnusableMemory,
+  EfiUnusableMemory,                            // 8
   ///
   /// Memory that holds the ACPI tables.
   ///
-  EfiACPIReclaimMemory,
+  EfiACPIReclaimMemory,                         // 9
   ///
   /// Address space reserved for use by the firmware.
   ///
