@@ -517,6 +517,8 @@ int strcmp_custom(const char *s1, const char *s2) {
     return *(unsigned char *)s1 - *(unsigned char *)s2;
 }
 
+void testMicroSecondDelay();
+
 /**
   Loads, relocates, and invokes a PE/COFF image
 
@@ -826,9 +828,13 @@ CoreLoadPeImage (
   //
   if (!EFI_ERROR (Status)) {
     DEBUG ((DEBUG_INFO | DEBUG_LOAD, "%a\n", EfiFileName));
-    if(strcmp_custom("OpenCanopy.efi",EfiFileName) == 0 || strcmp_custom("OpenCore.efi",EfiFileName) == 0 || strcmp_custom("SecurityStubDxe.efi",EfiFileName) == 0)
+    if(strcmp_custom("OpenCanopy.efi",EfiFileName) == 0 || strcmp_custom("OpenCore.efi",EfiFileName) == 0 || strcmp_custom("SecurityStubDxe.efi",EfiFileName) == 0 || strcmp_custom("bootX64.efi",EfiFileName) == 0)
     {
         testGetDllAddress();
+#if 0
+        MicroSecondDelay(10*1000000);
+        testMicroSecondDelay();
+#endif
     }
   }
   DEBUG ((DEBUG_INFO | DEBUG_LOAD, "\n"));
@@ -1058,16 +1064,35 @@ void testMicroSecondDelay()
     DEBUG ((DEBUG_INFO,"---testMicroSecondDelay---\n"));
 }
 
+// 自定义的 CHAR16 字符串长度计算（正确，保留不变）
 int strlen(const CHAR16 *str) {
     const CHAR16 *s;
     for (s = str; *s; ++s);
     return (s - str);
 }
 
-int stringIsContainSubString(CHAR16 *str, CHAR16 *sub) {
-    int i, j;
-    int strLen = strlen(str);
+// 修复后的子串匹配函数
+int stringIsContainSubString(const CHAR16 *str, const CHAR16 *sub) {
+    // 1. 处理空指针（容错，避免崩溃）
+    if (str == NULL || sub == NULL) {
+        return FALSE; // 或根据需求定义：str为NULL时返回FALSE，sub为NULL时也返回FALSE
+    }
+
+    // 2. 处理空字符串sub（空串是任何字符串的子串，直接返回TRUE）
     int subLen = strlen(sub);
+    if (subLen == 0) {
+        return TRUE;
+    }
+
+    int strLen = strlen(str);
+    // 3. 若子串长度 > 原串长度，直接返回FALSE（无需循环）
+    if (subLen > strLen) {
+        return FALSE;
+    }
+
+    // 4. 显式初始化局部变量
+    int i = 0;
+    int j = 0;
 
     for (i = 0; i <= strLen - subLen; i++) {
         for (j = 0; j < subLen; j++) {
@@ -1075,14 +1100,14 @@ int stringIsContainSubString(CHAR16 *str, CHAR16 *sub) {
                 break;
             }
         }
-        if (j + 1 == subLen) {
+        // 5. 修正匹配成功的判断条件（j遍历完所有子串字符，即j == subLen）
+        if (j == subLen) {
             return TRUE; // Substring found
         }
     }
 
     return FALSE; // Substring not found
 }
-
 
 /**
   Loads an EFI image into memory and returns a handle to the image.
@@ -1464,9 +1489,17 @@ CoreLoadImageCommon (
   }
 
   CHAR16* DevicePathStr = ConvertDevicePathToText (OriginalFilePath, FALSE, FALSE);
-  DEBUG ((DEBUG_INFO,"DevicePathStr::%s\n",DevicePathStr));
+  if (DevicePathStr != NULL) {
+    UINTN Length = StrLen (DevicePathStr);
+    CHAR8* AsciiStr = AllocatePool (Length + 1);
+    if (AsciiStr != NULL) {
+      UnicodeStrToAsciiStrS (DevicePathStr, AsciiStr, Length + 1);
+      DEBUG ((DEBUG_INFO, "DevicePathStr::%a\n", AsciiStr));
+      FreePool (AsciiStr);
+    }
+  }
 
-  if(stringIsContainSubString(DevicePathStr,L"boot_bigSur.")){
+  if(stringIsContainSubString(DevicePathStr,L"boot.") || stringIsContainSubString(DevicePathStr,L"bootX64.")){
     testGetBootAddrees();
     MicroSecondDelay(10*1000000);
     testMicroSecondDelay();
