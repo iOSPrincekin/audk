@@ -203,3 +203,85 @@ make: *** [src/OpenCorePkg/UDK/Build/OpenCorePkg/DEBUG_XCODE5/X64/OpenRuntime.ef
 
 删除 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/C/libs/libCommon.a 后，在 /Users/lee/Desktop/Computer_Systems/UEFI/KVM-Opencore/ 重新执行 `sudo make dist` 正常
 
+## 2.执行 lee@LEE-MacBook-Pro:~/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK|dev⚡   ⇒  build -a X64 -p OpenCorePkg/OpenCorePkg.dsc -t XCODE5 -b DEBUG   报错：没有权限
+
+```
+
+lee@LEE-MacBook-Pro:~/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK|dev⚡
+⇒  build -a X64 -p OpenCorePkg/OpenCorePkg.dsc -t XCODE5 -b DEBUG
+Build environment: macOS-13.7.8-x86_64-i386-64bit-Mach-O
+Build start time: 07:17:19, Jun.12 2026
+
+WORKSPACE        = /Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK
+EDK_TOOLS_PATH   = /Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools
+CONF_PATH        = /Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/Conf
+PYTHON_COMMAND   = python3
+Parser...
+/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/OpenCorePkg/OpenCorePkg.dsc(1): warning: Unrecognized content
+    UefiLib
+
+
+Processing meta-data
+.Architecture(s)  = X64
+Build target     = DEBUG
+Toolchain        = XCODE5
+
+Active Platform          = /Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/OpenCorePkg/OpenCorePkg.dsc
+.........
+
+
+build.py...
+ : error C0DE: Unknown fatal error when processing [/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/OpenCorePkg/OpenCorePkg.dsc]
+
+(Please send email to devel@edk2.groups.io for help, attaching following call stack trace!)
+
+(Python 3.13.12 on darwin) Traceback (most recent call last):
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/BinWrappers/PosixLike/../../Source/Python/build/build.py", line 2716, in Main
+    MyBuild.Launch()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/BinWrappers/PosixLike/../../Source/Python/build/build.py", line 2511, in Launch
+    self._MultiThreadBuildPlatform()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/BinWrappers/PosixLike/../../Source/Python/build/build.py", line 2303, in _MultiThreadBuildPlatform
+    Wa, self.BuildModules = self.PerformAutoGen(BuildTarget,ToolChain)
+                            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/BinWrappers/PosixLike/../../Source/Python/build/build.py", line 2154, in PerformAutoGen
+    Wa = WorkspaceAutoGen(
+            self.WorkspaceDir,
+    ...<13 lines>...
+            self.Progress
+            )
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/Python/AutoGen/WorkspaceAutoGen.py", line 43, in __init__
+    self._InitWorker(Workspace, MetaFile, Target, Toolchain, Arch, *args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/Python/AutoGen/WorkspaceAutoGen.py", line 135, in _InitWorker
+    self.GeneratePlatformLevelHash()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/Python/AutoGen/WorkspaceAutoGen.py", line 607, in GeneratePlatformLevelHash
+    os.remove(AutoGenFilePath)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/BaseTools/Source/Python/Common/LongFilePathOs.py", line 27, in remove
+    return os.remove(LongFilePath(path))
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: '/Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK/Build/OpenCorePkg/DEBUG_XCODE5/AutoGen'
+
+
+- Failed -
+Build end time: 07:17:28, Jun.12 2026
+Build total time: 00:00:10
+
+```
+
+**解决方案**
+
+执行下面步骤后，构建成功
+```
+
+cd /Users/lee/Desktop/Computer_Systems/Macos/KVM-Opencore/src/OpenCorePkg/UDK
+
+sudo chown -R "$USER":staff Build
+
+
+build -a X64 -p OpenCorePkg/OpenCorePkg.dsc -t XCODE5 -b DEBUG
+
+```
